@@ -11,7 +11,7 @@ const app = express();
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/blogbackend")
+  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogbackend")
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
@@ -23,8 +23,16 @@ app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/blogs", blogRoutes);
 
-module.exports = app;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Default route for Vercel
+app.get('/', (req, res) => {
+  res.status(200).json({ message: "Backend is running" });
 });
+
+// Only call listen if not in Vercel environment
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
