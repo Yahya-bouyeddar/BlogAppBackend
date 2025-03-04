@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes_tem/auth");
-const blogRoutes = require("./routes_tem/blogs");
+const authRoutes = require("./src/routes_tem/auth");
+const blogRoutes = require("./src/routes_tem/blogs");
 require("dotenv").config();
 
 const app = express();
@@ -23,8 +23,10 @@ app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/blogs", blogRoutes);
 
-module.exports = app;
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;
