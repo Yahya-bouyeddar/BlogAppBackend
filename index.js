@@ -23,7 +23,12 @@ app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/blogs", blogRoutes);
 
-
+app.get('/',(req , res) => {
+  res.status(200).json({
+    message : "backend is running",
+    environment : process.env.NODE_ENV
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
