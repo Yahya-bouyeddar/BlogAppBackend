@@ -2,6 +2,10 @@ const Blog = require("../models/Blog");
 
 exports.createBlog = async (req, res) => {
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "Unauthorized: No user ID found." });
+    }
+
     const newBlog = new Blog({ ...req.body, author: req.user.id });
     await newBlog.save();
     res.status(201).json(newBlog);
@@ -9,6 +13,7 @@ exports.createBlog = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.getAllBlogs = async (req, res) => {
   const blogs = await Blog.find().populate("author", "username");

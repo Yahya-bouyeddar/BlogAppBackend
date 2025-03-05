@@ -1,10 +1,10 @@
 {
   "name": "blogbackend",
   "version": "1.0.0",
-  "main": "src/server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+    "dev": "nodemon index.js"
     
   },
   "keywords": [],
@@ -19,7 +19,9 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.11.0"
+    "mongoose": "^8.11.0",
+    "body-parser": "^1.20.2"
+    
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const dotenv = require('dotenv');
 
 const auth = async (req, res, next) => {
+  dotenv.config();
   try {
     // Check if Authorization header exists
     const authHeader = req.header("Authorization");
@@ -11,9 +13,9 @@ const auth = async (req, res, next) => {
 
     const token = authHeader.replace("Bearer ", "");
     console.log("Received token:", token);
-
+    console.log('jwt', process.env.JWT_SECRET)
     // Use same secret as in authController
-    const decoded = jwt.verify(token, "your_jwt_secret");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded token:", decoded);
 
     // Fix: Use decoded.id instead of decoded._id

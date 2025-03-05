@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 exports.register = async (req, res) => {
+  console.log('testtt')
   try {
     const { username, email, password } = req.body;
     // Use consistent salt rounds (10)
@@ -40,7 +41,7 @@ exports.login = async (req, res) => {
 
       if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
-      const token = jwt.sign({ id: user._id }, "your_jwt_secret", { expiresIn: "1h" });
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
       res.json({ token, user: { id: user._id, email: user.email, username: user.username } });
     } catch (bcryptError) {
       console.error('Bcrypt comparison error:', bcryptError);

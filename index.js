@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes_tem/auth");
-const blogRoutes = require("./routes_tem/blogs");
+const authRoutes = require("./src/routes_tem/auth");
+const blogRoutes = require("./src/routes_tem/blogs");
 require("dotenv").config();
 
 const app = express();
@@ -23,16 +23,15 @@ app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/blogs", blogRoutes);
 
-// Default route for Vercel
-app.get('/', (req, res) => {
-  res.status(200).json({ message: "Backend is running" });
+app.get('/',(req , res) => {
+  res.status(200).json({
+    message : "backend is running",
+    environment : process.env.NODE_ENV
+  });
 });
 
-// Only call listen if not in Vercel environment
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 module.exports = app;
