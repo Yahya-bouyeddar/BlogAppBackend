@@ -11,7 +11,7 @@ const app = express();
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/blogbackend")
+  .connect("mongodb+srv://yahya:Velenoverde124@cluster0.wiieb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
